@@ -39,6 +39,7 @@ function CouponPage() {
       {
       
         /*Now show coupon data*/
+        /* If coupon exists  */
         couponData && (
           <div>
             {/* Scratch code here */}
