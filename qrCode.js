@@ -1,18 +1,24 @@
-import React from "react";
-import "./styles.css";
-import QRCode from "react-qr-code";
-import useSWR from "swr";
+import React, { useState } from 'react';
+import { QrReader } from 'react-qr-reader';
 
-export default function App() {
-  const { data, error } = useSWR("/api/user", fetch);
-
-  if (error) return <div>failed to load</div>;
-  if (!data) return <div>loading...</div>;
+const Test = (props) => {
+  const [data, setData] = useState('No result');
 
   return (
-    <div className="App">
-      <h2>Hey Barista, Please scan this qr for coffee...</h2>
-      <QRCode value="Nikhil pol pol pol" size="250" />
-    </div>
+    <>
+      <QrReader
+        onResult={(result, error) => {
+          if (!!result) {
+            setData(result?.text);
+          }
+
+          if (!!error) {
+            console.info(error);
+          }
+        }}
+        style={{ width: '100%' }}
+      />
+      <p>{data}</p>
+    </>
   );
-}
+};
