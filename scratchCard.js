@@ -1,31 +1,28 @@
 import React from "react";
-import ScratchCard from "react-scratchcard-v2";
-import shrey from "shrey.jpg";
+import "./styles.css";
+import ScratchCard from "react-scratchcard";
+import couponCover from "./card.jpg";
 
-const App = () => {
+const { useState } = React;
+export default function App() {
+  const [scratchedText, setScratchedText] = useState("");
+  const handleScratchComplete = () => {
+    console.log("The card is now clear!");
+    setScratchedText("Congratulations! You WON!");
+  };
+
+  const settings = {
+    width: 300,
+    height: 300,
+    image: couponCover,
+    finishPercent: 50,
+    onComplete: () => handleScratchComplete()
+  };
   return (
-    <div>
-      <ScratchCard
-        width={500}
-        height={400}
-        image={shrey}
-        finishPercent={20}
-        onComplete={() => console.log("complete")}
-      >
-        <div
-          style={{
-            display: "flex",
-            width: "100%",
-            height: "100%",
-            alignItems: "center",
-            justifyContent: "center"
-          }}
-        >
-          <h1>Prize!!!!</h1>
-        </div>
+    <div className="App">
+      <ScratchCard {...settings}>
+        <div className="scratchedDiv">{scratchedText}</div>
       </ScratchCard>
     </div>
   );
-};
-
-export default App;
+}
